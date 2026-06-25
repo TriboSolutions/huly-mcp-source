@@ -2591,6 +2591,11 @@ export {
 } from "./test-management-plans.js"
 
 export {
+  type CreateLeadParams,
+  createLeadParamsJsonSchema,
+  CreateLeadParamsSchema,
+  type CreateLeadResult,
+  CreateLeadResultSchema,
   FunnelIdentifier,
   FunnelReference,
   type FunnelSummary,
@@ -2610,6 +2615,7 @@ export {
   type ListLeadsParams,
   listLeadsParamsJsonSchema,
   ListLeadsParamsSchema,
+  parseCreateLeadParams,
   parseGetLeadParams,
   parseLeadDetail,
   parseLeadSummary,

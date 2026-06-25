@@ -73,7 +73,7 @@ type StatusInfo = {
 
 type HulyCustomer = Contact | HulyOrganization
 
-const funnelAsSpace = (funnel: HulyFunnel): Ref<Space> => toRef<Space>(funnel._id)
+export const funnelAsSpace = (funnel: HulyFunnel): Ref<Space> => toRef<Space>(funnel._id)
 
 const statusInfosWithFallbacks = (
   statusRefs: ReadonlyArray<Ref<Status>>,
@@ -115,7 +115,7 @@ const compareFunnelsByRecency = (left: HulyFunnel, right: HulyFunnel): number =>
   return right.modifiedOn - left.modifiedOn
 }
 
-const findFunnel = (
+export const findFunnel = (
   client: HulyClient["Type"],
   funnelIdentifier: FunnelReference
 ): Effect.Effect<HulyFunnel, FunnelNotFoundError | HulyClientError> =>
@@ -143,7 +143,7 @@ const findFunnel = (
     return funnel
   })
 
-const getFunnelStatuses = (
+export const getFunnelStatuses = (
   client: HulyClient["Type"],
   funnel: HulyFunnel
 ): Effect.Effect<ReadonlyArray<StatusInfo>, HulyClientError | HulyConnectionError, Diagnostics> =>
@@ -196,7 +196,7 @@ const resolveStatusName = (
     )
 }
 
-const resolveStatusByName = (
+export const resolveStatusByName = (
   statuses: ReadonlyArray<StatusInfo>,
   statusName: string,
   funnel: string

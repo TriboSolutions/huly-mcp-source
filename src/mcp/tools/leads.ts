@@ -1,14 +1,18 @@
 import {
+  createLeadParamsJsonSchema,
+  CreateLeadResultSchema,
   getLeadParamsJsonSchema,
   GetLeadResultSchema,
   listFunnelsParamsJsonSchema,
   ListFunnelsResultSchema,
   listLeadsParamsJsonSchema,
   ListLeadsResultSchema,
+  parseCreateLeadParams,
   parseGetLeadParams,
   parseListFunnelsParams,
   parseListLeadsParams
 } from "../../domain/schemas/leads.js"
+import { createLead } from "../../huly/operations/leads-write.js"
 import { getLead, listFunnels, listLeads } from "../../huly/operations/leads.js"
 import { defineTool, type RegisteredTool } from "./registry.js"
 
@@ -38,6 +42,18 @@ export const leadTools: ReadonlyArray<RegisteredTool> = [
     },
     parseListLeadsParams,
     listLeads
+  ),
+  defineTool(
+    {
+      name: "create_lead",
+      description:
+        "Create a new Huly sales funnel lead card. Pass a funnel ID from list_funnels, or a funnel name. The customer must be an organization ID or exact unique organization name; the organization is marked as a Leads customer if needed.",
+      category: CATEGORY,
+      inputSchema: createLeadParamsJsonSchema,
+      resultSchema: CreateLeadResultSchema
+    },
+    parseCreateLeadParams,
+    createLead
   ),
   defineTool(
     {

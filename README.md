@@ -771,6 +771,7 @@ SDK upgrade revisit:
 |------|-------------|
 | `list_funnels` | List all Huly sales funnels (lead pipelines). Returns each funnel's stable ID and display name, sorted by name. Supports filtering by archived status. |
 | `list_leads` | Query Huly leads in a funnel with optional filters. Pass the funnel ID returned by list_funnels, or a funnel name for convenience lookup. Returns leads sorted by modification date (newest first). Supports filtering by status, assignee, and title search. |
+| `create_lead` | Create a new Huly sales funnel lead card. Pass a funnel ID from list_funnels, or a funnel name. The customer must be an organization ID or exact unique organization name; the organization is marked as a Leads customer if needed. |
 | `get_lead` | Retrieve full details for a Huly lead including markdown description, customer name, funnel ID and funnel name, and status. Lead identifiers follow the upstream Huly format like 'LEAD-1'. |
 
 ### Templates

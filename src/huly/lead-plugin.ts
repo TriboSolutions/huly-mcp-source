@@ -26,6 +26,9 @@ export const leadClassIds = {
     Lead: leadRef("lead:class:Lead"),
     Funnel: leadRef("lead:class:Funnel")
   },
+  taskType: {
+    Lead: leadRef("lead:taskType:Lead")
+  },
   mixin: {
     Customer: leadMixinRef<HulyOrganization>("lead:mixin:Customer")
   }

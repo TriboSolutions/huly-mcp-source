@@ -106,6 +106,20 @@ export const LeadDetailSchema = Schema.Struct({
 
 export type LeadDetail = Schema.Schema.Type<typeof LeadDetailSchema>
 
+export const CreateLeadResultSchema = Schema.Struct({
+  identifier: LeadIdentifier,
+  leadId: DocId,
+  title: Schema.String,
+  funnel: FunnelIdentifier,
+  funnelName: Schema.String,
+  customer: Schema.String
+}).annotations({
+  title: "CreateLeadResult",
+  description: "Created lead card"
+})
+
+export type CreateLeadResult = Schema.Schema.Type<typeof CreateLeadResultSchema>
+
 // --- Param Schemas ---
 
 export const ListFunnelsParamsSchema = Schema.Struct({
@@ -165,15 +179,44 @@ export const GetLeadParamsSchema = Schema.Struct({
 
 export type GetLeadParams = Schema.Schema.Type<typeof GetLeadParamsSchema>
 
+export const CreateLeadParamsSchema = Schema.Struct({
+  funnel: FunnelReference.annotations({
+    description: "Funnel ID returned by list_funnels, or funnel name for convenience lookup."
+  }),
+  title: NonEmptyString.annotations({
+    description: "Lead card title"
+  }),
+  customer: NonEmptyString.annotations({
+    description:
+      "Organization customer ID or exact unique organization name. The organization is marked as a Leads customer if needed."
+  }),
+  status: Schema.optional(StatusName.annotations({
+    description: "Initial status name. Defaults to the funnel's first workflow status."
+  })),
+  assignee: Schema.optional(PersonRefInput.annotations({
+    description: "Assignee email or display name"
+  })),
+  description: Schema.optional(Schema.String.annotations({
+    description: "Lead description in markdown"
+  }))
+}).annotations({
+  title: "CreateLeadParams",
+  description: "Parameters for creating a lead card"
+})
+
+export type CreateLeadParams = Schema.Schema.Type<typeof CreateLeadParamsSchema>
+
 // --- JSON Schemas & Parsers ---
 
 export const listFunnelsParamsJsonSchema = JSONSchema.make(ListFunnelsParamsSchema)
 export const listLeadsParamsJsonSchema = JSONSchema.make(ListLeadsParamsSchema)
 export const getLeadParamsJsonSchema = JSONSchema.make(GetLeadParamsSchema)
+export const createLeadParamsJsonSchema = JSONSchema.make(CreateLeadParamsSchema)
 
 export const parseListFunnelsParams = Schema.decodeUnknown(ListFunnelsParamsSchema)
 export const parseListLeadsParams = Schema.decodeUnknown(ListLeadsParamsSchema)
 export const parseGetLeadParams = Schema.decodeUnknown(GetLeadParamsSchema)
+export const parseCreateLeadParams = Schema.decodeUnknown(CreateLeadParamsSchema)
 export const parseLeadDetail = Schema.decodeUnknown(LeadDetailSchema)
 export const parseLeadSummary = Schema.decodeUnknown(LeadSummarySchema)
 export const ListFunnelsResultSchema = Schema.Struct({
